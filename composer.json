@@ -1,0 +1,20 @@
+{
+  "name": "achei/module-reservation-api",
+  "version": "1.0.0",
+  "description": "extends rest api to check inventory reservations",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Achei\\ReservationApi\\": ""
+    }
+  }
+}
