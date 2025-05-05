@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/inventory/reservations/:sku" method="GET">
+        <service class="Achei\ReservationApi\Api\ReservationRepositoryInterface" method="getBySku"/>
+        <resources>
+            <resource ref="Magento_InventoryApi::source_read"/>
+        </resources>
+    </route>
+
+</routes>
