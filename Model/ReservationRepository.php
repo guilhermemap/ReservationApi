@@ -28,13 +28,13 @@ class ReservationRepository implements ReservationRepositoryInterface
     public function getBySku($sku)
     {
         $connection = $this->connection->getConnection();
-        $tableName = $this->connection->getTableName('inventory_reservation');
-        $query = $connection
-            ->select()
-            ->from($tableName)
-            ->where('sku = ?', $sku);
+        $result = $connection->query("select r.* from inventory_reservation r
+        left join inventory_reservation r2 on
+            JSON_EXTRACT(r.metadata,'$.object_increment_id')=JSON_UNQUOTE(JSON_EXTRACT(r2.metadata,'$.object_increment_id'))
+            and r.reservation_id!=r2.reservation_id
+        where r2.reservation_id is null and r.sku=?;", [$sku])->fetchAll();
 
-        $result = $connection->fetchAll($query);
+
         return $result;
     }
 }
