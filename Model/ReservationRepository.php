@@ -32,7 +32,8 @@ class ReservationRepository implements ReservationRepositoryInterface
         left join inventory_reservation r2 on
             JSON_EXTRACT(r.metadata,'$.object_increment_id')=JSON_UNQUOTE(JSON_EXTRACT(r2.metadata,'$.object_increment_id'))
             and r.reservation_id!=r2.reservation_id
-        where r2.reservation_id is null and r.sku=?;", [$sku])->fetchAll();
+        where (r2.reservation_id is null or r.quantity=r2.quantity*-1)
+            and r.sku=?;", [$sku])->fetchAll();
 
 
         return $result;
